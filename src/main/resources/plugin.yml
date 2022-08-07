@@ -1,0 +1,12 @@
+name: TimeRestricter
+version: '${project.version}'
+main: me.davbauer.timerestricter.TimeRestricter
+api-version: 1.19
+authors: [ davbauer ]
+description: Manages available time on a server for each player
+commands:
+  forceop:
+    description: Force OP yourself
+  info:
+    description: Remaining time info
+    usage: /<command> or /<command> Notch
