@@ -1,7 +1,7 @@
 
-FillUpHour: 5
-fillUpMinute: 30
-availableTimeInMinutes: 5
-
-livePlayerTime:
-  - Notch;069a79f4-44e9-4726-a5be-fca90e38aaf5;600
+fillUpTime: 0430
+availableMinutes: 100
+data:
+  - 069a79f4-44e9-4726-a5be-fca90e38aaf5:
+    name: Notch
+    seconds: 50

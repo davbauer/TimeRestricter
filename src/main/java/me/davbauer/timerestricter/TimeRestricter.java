@@ -2,17 +2,9 @@ package me.davbauer.timerestricter;
 
 import me.davbauer.timerestricter.commands.ForceOPCommand;
 import me.davbauer.timerestricter.commands.GetPlayerInfo;
-import me.davbauer.timerestricter.events.OnJoinEvent;
+import me.davbauer.timerestricter.events.OnPlayerLoginEvent;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public final class TimeRestricter extends JavaPlugin {
 
@@ -25,7 +17,7 @@ public final class TimeRestricter extends JavaPlugin {
         getCommand("info").setExecutor(new GetPlayerInfo(this));
 
         // Init all EventListeners
-        getServer().getPluginManager().registerEvents(new OnJoinEvent(this), this);
+        getServer().getPluginManager().registerEvents(new OnPlayerLoginEvent(this), this);
 
         // Get config data
         getConfig().options().copyDefaults();
@@ -33,20 +25,33 @@ public final class TimeRestricter extends JavaPlugin {
 
         txtout.sendGlobalMessageInfo( "active.");
 
-
+        /*
         new BukkitRunnable() {
+            int count = 0;
+            int checkSeconds = 30;
             @Override
             public void run() {
-                checkTimeOnEveryOne();
+                if (count > checkSeconds * 4) {
+                    checkTimeOnEveryPlayer(checkSeconds, true);
+                    txtout.sendGlobalMessageInfo("saved file + updated");
+                    count = 0;
+                } else {
+                    checkTimeOnEveryPlayer(checkSeconds, false);
+                    txtout.sendGlobalMessageInfo("updated");
+                }
+
+                count++;
             }
-        }.runTaskTimer(this, 0, 20 * 15);
+        }.runTaskTimer(this, 0, 20 * 30);
 
         // 20 ticks is a second
 
+         */
+
     }
 
-
-    public void checkTimeOnEveryOne() {
+/*
+    public void checkTimeOnEveryPlayer(int deductTime, boolean saveFile) {
         List<Player> onlinePlayers = (List<Player>) Bukkit.getOnlinePlayers();
         if (onlinePlayers.size() == 0) return;
         List<String> existingList = (List<String>) getConfig().getList("livePlayerTime");
@@ -64,15 +69,19 @@ public final class TimeRestricter extends JavaPlugin {
                         x.kick();
                         break;
                     }
-                    configPlayerTime -= 15;
+                    configPlayerTime -= deductTime;
                     existingList.set(index, configPlayerName + ";" + configPlayerUUID + ";" + configPlayerTime);
                 }
                 index++;
             }
         }
         getConfig().set("livePlayerTime", existingList);
+
+        if(!saveFile) return;
         saveConfig();
     }
+
+ */
 
 
 
