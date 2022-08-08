@@ -21,5 +21,12 @@ commands:
     aliases:
       - gst
   setfilluptime:
-    description: View or change config. 1st parameter time, 2nd parameter days
+    description: View or change fillUpTime-config. 1st parameter time, 2nd parameter days.
     usage: Error, try -> /<command> or /<command> 04:15 1234567
+    aliases:
+      - sfut
+  setavailableminutes:
+    description: View or change availableMinutes-config. 1st parameter minutes.
+    usage: Error, try -> /<command> or /<command> 120
+    aliases:
+      - sam

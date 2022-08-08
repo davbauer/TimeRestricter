@@ -10,8 +10,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SetFillUpTime implements CommandExecutor {
 
@@ -31,9 +30,8 @@ public class SetFillUpTime implements CommandExecutor {
             
             String daystr = "";
             List<Integer> getDays = main.getConfig().getIntegerList("fillUpTimeDays");
-            
             for (final int day : getDays) {
-                daystr.concat(Integer.toString(day));
+                daystr = daystr.concat(Integer.toString(day));
             }
             
             outmsg = "Current fillUpTime-Config: " + getHour + ":" + getMinutes + " [" + daystr + "].";
@@ -67,7 +65,7 @@ public class SetFillUpTime implements CommandExecutor {
                 newConfigHour = Integer.parseInt(inputTime[0]);
                 newConfigMinute = Integer.parseInt(inputTime[1]);
 
-                if (newConfigHour > 12 || newConfigMinute > 60) {
+                if (newConfigHour > 24 || newConfigMinute > 60) {
                     return false;
                 }
             } catch (NumberFormatException e) {
@@ -77,7 +75,9 @@ public class SetFillUpTime implements CommandExecutor {
             main.getConfig().set("fillUpTimeMinute", newConfigMinute);
             main.getConfig().set("fillUpTimeDays", daysArray);
             main.saveConfig();
-            outmsg = "Current fillUpTime-Config: " + inputTime[0] + ":" + inputTime[1] + " [" + inputDaysStr + "].";
+
+
+            outmsg = "Changed fillUpTime-Config: " + inputTime[0] + ":" + inputTime[1] + " [" + inputDaysStr + "].";
 
         } else {
             return false;

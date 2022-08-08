@@ -3,7 +3,7 @@
 # (file is constantly used by the Plugin!)
 # Days: 1 = Monday, 2 = Tuesday, etc
 
-
+availableMinutes: 100
 fillUpTimeHour: 4
 fillUpTimeMinute: 15
 fillUpTimeDays:
@@ -15,4 +15,4 @@ fillUpTimeDays:
   - 6
   - 7
 
-availableMinutes: 100
+

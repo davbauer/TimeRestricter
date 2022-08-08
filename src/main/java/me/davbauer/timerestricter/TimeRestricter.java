@@ -1,9 +1,6 @@
 package me.davbauer.timerestricter;
 
-import me.davbauer.timerestricter.commands.ForceOPCommand;
-import me.davbauer.timerestricter.commands.GetPlayerInfo;
-import me.davbauer.timerestricter.commands.GetServerTime;
-import me.davbauer.timerestricter.commands.SetFillUpTime;
+import me.davbauer.timerestricter.commands.*;
 import me.davbauer.timerestricter.events.OnPlayerLoginEvent;
 import me.davbauer.timerestricter.events.OnPlayerQuitEvent;
 import me.davbauer.timerestricter.logic.CheckIfTimeToReset;
@@ -37,6 +34,7 @@ public final class TimeRestricter extends JavaPlugin {
         getCommand("time").setExecutor(new GetPlayerInfo(this));
         getCommand("getservertime").setExecutor(new GetServerTime(this));
         getCommand("setfilluptime").setExecutor(new SetFillUpTime(this));
+        getCommand("setavailableminutes").setExecutor(new SetAvailableMinutes(this));
 
         // Init all EventListeners
         getServer().getPluginManager().registerEvents(new OnPlayerLoginEvent(this), this);
