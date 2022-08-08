@@ -10,8 +10,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class OnPlayerQuitEvent implements Listener {
 
-    final TimeRestricter main;
-    final ConfigFunctions cf;
+    private final TimeRestricter main;
+    private final ConfigFunctions cf;
 
     public OnPlayerQuitEvent(TimeRestricter main) {
         this.main = main;

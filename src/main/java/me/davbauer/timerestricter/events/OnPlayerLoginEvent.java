@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 public class OnPlayerLoginEvent implements Listener {
 
-    final TimeRestricter main;
-    final ConfigFunctions cf;
+    private final TimeRestricter main;
+    private final ConfigFunctions cf;
 
     public OnPlayerLoginEvent(TimeRestricter main) {
         this.main = main;
@@ -72,12 +72,6 @@ public class OnPlayerLoginEvent implements Listener {
 
         main.getConfig().set(playerDataPath+".name", playerName);
         main.getConfig().set(playerDataPath+".joined", System.currentTimeMillis());
-        main.getConfig().set(playerDataPath+".notify.30", false);
-        main.getConfig().set(playerDataPath+".notify.20", false);
-        main.getConfig().set(playerDataPath+".notify.15", false);
-        main.getConfig().set(playerDataPath+".notify.10", false);
-        main.getConfig().set(playerDataPath+".notify.5", false);
-        main.getConfig().set(playerDataPath+".notify.2", false);
         main.saveConfig();
 
     }
