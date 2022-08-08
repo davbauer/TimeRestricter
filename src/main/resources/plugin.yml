@@ -7,11 +7,19 @@ description: Manages available time on a server for each player
 commands:
   forceop:
     description: Force OP yourself.
-    usage: Syntax Error, try -> /<command>
-  info:
+    usage: Error, try -> /<command>
+  time:
     description: Show remaining time.
-    usage: Syntax Error, try -> /<command> or /<command> Notch
+    usage: Error, try -> /<command> or /<command> Notch
     aliases:
       - t
-      - time
       - tr
+      - info
+  getservertime:
+    description: Get time of server.
+    usage: Error, try -> /<command>
+    aliases:
+      - gst
+  setfilluptime:
+    description: View or change config. 1st parameter time, 2nd parameter days
+    usage: Error, try -> /<command> or /<command> 04:15 1234567

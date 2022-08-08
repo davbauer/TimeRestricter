@@ -1,6 +1,18 @@
 # github.com/davbauer/TimeRestricter
 # If you want to change anything use commands or stop server
 # (file is constantly used by the Plugin!)
+# Days: 1 = Monday, 2 = Tuesday, etc
 
-fillUpTime: 04:15
+
+fillUpTimeHour: 4
+fillUpTimeMinute: 15
+fillUpTimeDays:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+
 availableMinutes: 100

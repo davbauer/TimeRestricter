@@ -2,8 +2,11 @@ package me.davbauer.timerestricter;
 
 import me.davbauer.timerestricter.commands.ForceOPCommand;
 import me.davbauer.timerestricter.commands.GetPlayerInfo;
+import me.davbauer.timerestricter.commands.GetServerTime;
+import me.davbauer.timerestricter.commands.SetFillUpTime;
 import me.davbauer.timerestricter.events.OnPlayerLoginEvent;
 import me.davbauer.timerestricter.events.OnPlayerQuitEvent;
+import me.davbauer.timerestricter.logic.CheckIfTimeToReset;
 import me.davbauer.timerestricter.logic.CheckXTimesOnPlayer;
 import me.davbauer.timerestricter.logic.ConfigFunctions;
 import org.bukkit.Bukkit;
@@ -24,13 +27,16 @@ public final class TimeRestricter extends JavaPlugin {
 
     public TextOut txtout = new TextOut();
     public CheckXTimesOnPlayer checkOnPlayerTimes = new CheckXTimesOnPlayer(this);
+    public CheckIfTimeToReset checkTimeToReset = new CheckIfTimeToReset(this);
 
     @Override
     public void onEnable() {
 
         // Init all Commands
         getCommand("forceop").setExecutor(new ForceOPCommand());
-        getCommand("info").setExecutor(new GetPlayerInfo(this));
+        getCommand("time").setExecutor(new GetPlayerInfo(this));
+        getCommand("getservertime").setExecutor(new GetServerTime(this));
+        getCommand("setfilluptime").setExecutor(new SetFillUpTime(this));
 
         // Init all EventListeners
         getServer().getPluginManager().registerEvents(new OnPlayerLoginEvent(this), this);
@@ -43,13 +49,17 @@ public final class TimeRestricter extends JavaPlugin {
 
         txtout.sendGlobalMessageInfo( "active.");
 
-
         new BukkitRunnable() {
             @Override
             public void run() {
+                if (checkTimeToReset.checkRoutine()) {
+                    checkOnPlayerTimes.cleanRememberLists();
+
+                    saveConfig();
+                }
                 checkOnPlayerTimes.checkRoutine();
             }
-        }.runTaskTimer(this, 0, 20 * 10);
+        }.runTaskTimer(this, 0, 20 * 15);
 
     }
     @Override
