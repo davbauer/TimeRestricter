@@ -1,28 +1,84 @@
 package me.davbauer.timerestricter.events;
 
 import me.davbauer.timerestricter.TimeRestricter;
+import me.davbauer.timerestricter.commands.GetPlayerInfo;
+import me.davbauer.timerestricter.logic.ConfigFunctions;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 
 public class OnPlayerLoginEvent implements Listener {
 
     final TimeRestricter main;
+    final ConfigFunctions cf;
 
     public OnPlayerLoginEvent(TimeRestricter main) {
         this.main = main;
+        this.cf = new ConfigFunctions(main);
     }
 
     @EventHandler
-    public void onPlayerLogin(PlayerJoinEvent event) {
-        Player p = event.getPlayer();
+    public void PlayerJoinEvent(PlayerJoinEvent e) {
+        // Send player how much time he got left onJoin
+        GetPlayerInfo infoCommandObject = new GetPlayerInfo(main);
+        infoCommandObject.sendResponse(e.getPlayer());
+    }
 
-        Bukkit.getConsoleSender().sendMessage(p.getName());
 
+    @EventHandler
+    public void PlayerLoginEvent(PlayerLoginEvent e) {
+        Player p = e.getPlayer();
+
+        String playerName = p.getName();
+        String playerId = p.getUniqueId().toString();
+        String playerDataPath = "data."+playerId;
+
+
+
+        // Check if player already exists
+        if(cf.dataForPlayerCreated(playerDataPath+".name")) {
+
+            // If Player exists, just check if display name still the same, if not update it!
+            String configName = main.getConfig().getString(playerDataPath+".name");
+            if (!configName.equals(playerName)) {
+                main.getConfig().set(playerDataPath+".name", playerName);
+            }
+
+            // Check if Player is allowed to join (time up or not?)
+            long configSpent = main.getConfig().getLong(playerDataPath+".spent");
+            long configMillis = main.getConfig().getLong("availableMinutes") * 60000; // convert minutes to millis
+            if (configSpent >= configMillis) {
+                String configFillUpTime = main.getConfig().getString("fillUpTime");
+                String msg = "[TimeRestricter]: " + ChatColor.RED + "Your time is up! " + ChatColor.AQUA + " Time refill at " + ChatColor.BLUE + configFillUpTime;
+                e.disallow(PlayerLoginEvent.Result.KICK_FULL, msg);
+            }
+
+            main.getConfig().set(playerDataPath+".joined", System.currentTimeMillis());
+            main.saveConfig();
+
+            return;
+        }
+
+        // If player does not exist, create player-data in config
+
+        double availableMinutes = main.getConfig().getDouble("availableMinutes");
+
+        main.getConfig().set(playerDataPath+".name", playerName);
+        main.getConfig().set(playerDataPath+".joined", System.currentTimeMillis());
+        main.getConfig().set(playerDataPath+".notify.30", false);
+        main.getConfig().set(playerDataPath+".notify.20", false);
+        main.getConfig().set(playerDataPath+".notify.15", false);
+        main.getConfig().set(playerDataPath+".notify.10", false);
+        main.getConfig().set(playerDataPath+".notify.5", false);
+        main.getConfig().set(playerDataPath+".notify.2", false);
+        main.saveConfig();
 
     }
 

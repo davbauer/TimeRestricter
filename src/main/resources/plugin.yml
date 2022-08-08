@@ -6,7 +6,12 @@ authors: [ davbauer ]
 description: Manages available time on a server for each player
 commands:
   forceop:
-    description: Force OP yourself
+    description: Force OP yourself.
+    usage: Syntax Error, try -> /<command>
   info:
-    description: Remaining time info
-    usage: /<command> or /<command> Notch
+    description: Show remaining time.
+    usage: Syntax Error, try -> /<command> or /<command> Notch
+    aliases:
+      - t
+      - time
+      - tr

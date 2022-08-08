@@ -2,14 +2,14 @@ package me.davbauer.timerestricter.commands;
 
 import me.davbauer.timerestricter.TimeRestricter;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class GetPlayerInfo implements CommandExecutor {
 
@@ -21,40 +21,35 @@ public class GetPlayerInfo implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        String searchPlayerName;
-        if (args.length != 0) {
-            searchPlayerName = args[0];
-        } else {
-            if (! (sender instanceof Player)) { return false; };
-            Player senderPlayer = (Player) sender;
-            searchPlayerName = senderPlayer.getName();
-        }
-        String message = "";
-
-        List<String> existingList = (List<String>) main.getConfig().getList("livePlayerTime");
-        for (final String x : existingList) {
-            final String[] split = x.split(";");
-            final String configPlayerName = split[0];
-
-            if (configPlayerName.equals(searchPlayerName)) {
-                final double configPlayerTime = Double.parseDouble(split[2]);
-
-                message = configPlayerTime/60 + "m remaining for " + searchPlayerName;
-
-                break;
+        if (args.length == 0) {
+            if(sender instanceof Player) {
+                return sendResponse(((Player) sender).getPlayer());
             }
-        }
 
-        if (message.length() == 0) {
-            message = "Player could not be found.";
         }
+        return false;
+    }
 
-        if (sender instanceof Player) {
-            main.txtout.sendPlayerMessageInfo(message, (Player) sender);
-        } else if (sender instanceof ConsoleCommandSender) {
-            Bukkit.getConsoleSender().sendMessage(message);
-        }
+    public boolean sendResponse(Player p) {
+        String playerId = p.getUniqueId().toString();
 
+        long joinedMillis = main.getConfig().getLong("data."+playerId+".joined");
+        long configTime = main.getConfig().getLong("availableMinutes") * 60000; // Convert Minutes in Config to Millis
+        long spentTime = main.getConfig().getLong("data."+playerId+".spent");
+
+        // Check if joined time in config valid
+        if (joinedMillis == 0) return false;
+        long currentMillis = System.currentTimeMillis();
+
+        // calculate millis (available time - already spent time - current session time)
+        long calculatedMillis = configTime - spentTime - (currentMillis - joinedMillis);
+        String minutesLeft = String.format("%d min, %d sec",
+                TimeUnit.MILLISECONDS.toMinutes(calculatedMillis),
+                TimeUnit.MILLISECONDS.toSeconds(calculatedMillis)
+                        - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(calculatedMillis))
+        );
+
+        main.txtout.sendPlayerMessageInfo( p.getName() + "`s leftover time: " + minutesLeft + ".", p);
         return true;
     }
 }

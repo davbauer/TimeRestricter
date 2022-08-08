@@ -1,7 +1,6 @@
+# github.com/davbauer/TimeRestricter
+# If you want to change anything use commands or stop server
+# (file is constantly used by the Plugin!)
 
-fillUpTime: 0430
+fillUpTime: 04:15
 availableMinutes: 100
-data:
-  - 069a79f4-44e9-4726-a5be-fca90e38aaf5:
-    name: Notch
-    seconds: 50

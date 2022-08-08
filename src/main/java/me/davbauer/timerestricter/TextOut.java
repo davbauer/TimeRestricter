@@ -20,6 +20,10 @@ public class TextOut {
         this.sendPlayerMessage(ChatColor.YELLOW + msg, p);
     }
 
+    public void sendPlayerMessageWarn(String msg, Player p) {
+        this.sendPlayerMessage(ChatColor.RED + msg, p);
+    }
+
     public void sendGlobalMessage(String msg) {
         String myMessage = outputTextPrefix + ChatColor.WHITE+msg;
         Bukkit.getConsoleSender().sendMessage(myMessage);
@@ -30,6 +34,10 @@ public class TextOut {
 
     public void sendGlobalMessageInfo(String msg) {
         this.sendGlobalMessage(ChatColor.YELLOW + msg);
+    }
+
+    public void sendGlobalMessageWarn(String msg) {
+        this.sendGlobalMessage(ChatColor.RED + msg);
     }
 
 
