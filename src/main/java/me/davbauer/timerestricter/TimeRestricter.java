@@ -4,6 +4,7 @@ import me.davbauer.timerestricter.commands.ForceOPCommand;
 import me.davbauer.timerestricter.commands.GetPlayerInfo;
 import me.davbauer.timerestricter.events.OnPlayerLoginEvent;
 import me.davbauer.timerestricter.events.OnPlayerQuitEvent;
+import me.davbauer.timerestricter.logic.CheckXTimesOnPlayer;
 import me.davbauer.timerestricter.logic.ConfigFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,6 +23,7 @@ import java.util.Map;
 public final class TimeRestricter extends JavaPlugin {
 
     public TextOut txtout = new TextOut();
+    public CheckXTimesOnPlayer checkOnPlayerTimes = new CheckXTimesOnPlayer(this);
 
     @Override
     public void onEnable() {
@@ -45,17 +47,11 @@ public final class TimeRestricter extends JavaPlugin {
         new BukkitRunnable() {
             @Override
             public void run() {
-                kickIfPlayerTimeOver();
+                checkOnPlayerTimes.checkRoutine();
             }
         }.runTaskTimer(this, 0, 20 * 10);
 
     }
-
-    public void kickIfPlayerTimeOver() {
-
-    }
-
-
     @Override
     public void onDisable() {
         // Plugin shutdown logic
