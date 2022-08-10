@@ -1,4 +1,4 @@
-# TimeRestricter
+# Spigot Plugin: TimeRestricter
 
 ## Officially supported Minecraft versions:
 
