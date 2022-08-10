@@ -33,7 +33,7 @@ fillUpTimeDays:
 ## Commands
 
 ```txt
-- /tr-time ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ Shows the player the remaining time.
+- /tr-time        Shows the player the remaining time.
 - /tr-time <player_name> ⠀ ⠀ ⠀ ⠀Lookup remaning time of other players.
 - /tr-playerstime ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ View remaining time of all players.
 
