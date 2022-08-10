@@ -1,28 +1,19 @@
 package me.davbauer.timerestricter.logic;
 
 import me.davbauer.timerestricter.TimeRestricter;
-import org.bukkit.Bukkit;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class CheckIfTimeToReset {
     private final TimeRestricter main;
-    private final ConfigFunctions cf;
+    private final LogicFunctions cf;
 
     private boolean alreadyChanged = false;
 
     public CheckIfTimeToReset(TimeRestricter main) {
         this.main = main;
-        this.cf = new ConfigFunctions(main);
+        this.cf = new LogicFunctions(main);
     }
 
     public boolean checkRoutine() {

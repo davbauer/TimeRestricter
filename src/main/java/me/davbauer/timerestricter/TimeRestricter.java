@@ -6,10 +6,10 @@ import me.davbauer.timerestricter.events.OnPlayerQuitEvent;
 import me.davbauer.timerestricter.logic.CheckIfTimeToReset;
 import me.davbauer.timerestricter.logic.CheckTimeOnPlayers;
 import me.davbauer.timerestricter.logic.ResetTimeForPlayers;
+import me.davbauer.timerestricter.logic.TextOut;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.time.LocalDateTime;
 
 public final class TimeRestricter extends JavaPlugin {
 
@@ -25,7 +25,6 @@ public final class TimeRestricter extends JavaPlugin {
         getCommand("tr-enabled").setExecutor(new EnabledCommand(this));
         getCommand("tr-credits").setExecutor(new CreditsInfoCommand(this));
         getCommand("tr-timereset").setExecutor(new ResetTimeCommand(this));
-        getCommand("tr-forceop").setExecutor(new ForceOPCommand());
         getCommand("tr-time").setExecutor(new PlayerTimeCommand(this));
         getCommand("tr-servertime").setExecutor(new ServerTimeCommand(this));
         getCommand("tr-filluptime").setExecutor(new FillUpTimeCommand(this));
@@ -37,12 +36,6 @@ public final class TimeRestricter extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
-        // Check if plugin should even be enabled
-        boolean shouldBeEnabled =  getConfig().getBoolean("enabled");
-
-        if (!shouldBeEnabled) return;
-
-
         // Init all EventListeners
         getServer().getPluginManager().registerEvents(new OnPlayerLoginEvent(this), this);
         getServer().getPluginManager().registerEvents(new OnPlayerQuitEvent(this), this);
@@ -53,6 +46,7 @@ public final class TimeRestricter extends JavaPlugin {
 
         this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             public void run() {
+                if (!getConfig().getBoolean("enabled")) return;
                 if (checkIfTimeToReset.checkRoutine()) {
                     resetTimeForPlayers.doRoutine();
                 }
@@ -64,6 +58,11 @@ public final class TimeRestricter extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        OnPlayerQuitEvent onPlayerQuitEvent = new OnPlayerQuitEvent(this);
+        for (final Player p : Bukkit.getOnlinePlayers()) {
+            onPlayerQuitEvent.PlayerOffline(p);
+        }
+        saveConfig();
         Bukkit.getConsoleSender().sendMessage("[TimeRestricter] stopped.");
     }
 }

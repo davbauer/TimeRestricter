@@ -2,24 +2,22 @@ package me.davbauer.timerestricter.logic;
 
 import me.davbauer.timerestricter.TimeRestricter;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CheckTimeOnPlayers {
 
     private final TimeRestricter main;
-    private final ConfigFunctions cf;
+    private final LogicFunctions cf;
 
     private int  minToMillisFactor = 60000;
 
     private Map<String, Integer> notifyReminder = new HashMap<>();
     public CheckTimeOnPlayers(TimeRestricter main) {
         this.main = main;
-        this.cf = new ConfigFunctions(main);
+        this.cf = new LogicFunctions(main);
     }
 
     public void cleanRememberLists() {
@@ -33,7 +31,7 @@ public class CheckTimeOnPlayers {
             String playerDataPath = "data."+playerId;
 
             // If Player not in config skip to next player
-            ConfigFunctions cf = new ConfigFunctions(main);
+            LogicFunctions cf = new LogicFunctions(main);
             if (!cf.dataForPlayerCreated(playerDataPath+".name")) continue;
 
             long availableMillis = main.getConfig().getLong("availableMinutes") * minToMillisFactor;

@@ -1,0 +1,24 @@
+
+timerestricter.view_available_minutes
+timerestricter.change_available_minutes
+
+timerestricter.view_plugin_enabled
+timerestricter.change_plugin_enabled
+
+timerestricter.view_filluptime
+timerestricter.change_filluptime
+
+timerestricter.view_time_all_player
+timerestricter.view_time_self
+
+timerestricter.reset_time
+
+Automatically earned rights trough
+`allowBasicCommandsWithoutPermissions: true`
+in config:
+
+timerestricter.view_available_minutes
+timerestricter.view_plugin_enabled
+timerestricter.view_filluptime
+timerestricter.view_time_all_player
+timerestricter.view_time_self

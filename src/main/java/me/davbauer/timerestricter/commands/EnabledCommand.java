@@ -1,6 +1,7 @@
 package me.davbauer.timerestricter.commands;
 
 import me.davbauer.timerestricter.TimeRestricter;
+import me.davbauer.timerestricter.logic.LogicFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,33 +12,33 @@ import org.bukkit.entity.Player;
 public class EnabledCommand implements CommandExecutor {
 
     private final TimeRestricter main;
+    private final LogicFunctions lf;
 
     public EnabledCommand(TimeRestricter main) {
         this.main = main;
+        this.lf = new LogicFunctions(main);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String outputmsg = "";
+        String outputmsg;
         boolean configEnabled = main.getConfig().getBoolean("enabled");
 
         if (args.length > 0) {
+            if (!lf.senderGotRights("timerestricter.change_plugin_enabled", sender)) return false;
+
             boolean inputBool = Boolean.parseBoolean(args[0]);
             main.getConfig().set("enabled", inputBool);
             main.saveConfig();
-            outputmsg = "Changed enabled-config: " + inputBool;
-
-            if (configEnabled == inputBool) return true;
-            Bukkit.getServer().reload();
+            outputmsg = "Changed enabled-config: " + inputBool + ".";
         } else {
-            outputmsg = "Current enabled-config: " + configEnabled;
+            if(!lf.senderAllowedBasicCommands()) {
+                if (!lf.senderGotRights("timerestricter.view_plugin_enabled", sender)) return false;
+            }
+            outputmsg = "Current enabled-config: " + configEnabled + ".";
         }
 
-        if (sender instanceof Player) {
-            main.txtout.sendPlayerMessageInfo(outputmsg, (Player) sender);
-        } else if (sender instanceof ConsoleCommandSender) {
-            Bukkit.getConsoleSender().sendMessage("[TimeRestricter]: " + outputmsg);
-        }
+        lf.sendMsgToCorrectSenderInfo(outputmsg, sender);
 
         return true;
     }

@@ -1,29 +1,34 @@
 package me.davbauer.timerestricter.commands;
 
 import me.davbauer.timerestricter.TimeRestricter;
-import org.bukkit.Bukkit;
+import me.davbauer.timerestricter.logic.LogicFunctions;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
 
 public class AvailableMinutesCommand implements CommandExecutor {
 
     private final TimeRestricter main;
+    private final LogicFunctions lf;
 
     public AvailableMinutesCommand(TimeRestricter main) {
         this.main = main;
+        this.lf = new LogicFunctions(main);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String outmsg = "";
+        String outputmsg = "";
 
         if (args.length == 0) {
+            if(!lf.senderAllowedBasicCommands()) {
+                if (!lf.senderGotRights("timerestricter.view_available_minutes", sender)) return false;
+            }
             String configAvailableMinutes = main.getConfig().getString("availableMinutes");
-            outmsg = "Current availableMinutes-Config: " + configAvailableMinutes + "m.";
+            outputmsg = "Current availableMinutes-Config: " + configAvailableMinutes + "m.";
         } else {
+            if (!lf.senderGotRights("timerestricter.change_available_minutes", sender)) return false;
+
             String inputMinutesStr = args[0];
             int inputMinutes = 0;
 
@@ -39,17 +44,13 @@ public class AvailableMinutesCommand implements CommandExecutor {
 
             main.getConfig().set("availableMinutes", inputMinutes);
             main.saveConfig();
-            outmsg = "Changed availableMinutes-Config: " + inputMinutes + "m.";
+            outputmsg = "Changed availableMinutes-Config: " + inputMinutes + "m.";
 
             // After changing the available Time, the rememberList for notifications should be cleared for new notifications
             main.checkTimeOnPlayers.cleanRememberLists();
         }
 
-        if (sender instanceof Player) {
-            main.txtout.sendPlayerMessageInfo(outmsg, (Player) sender);
-        } else if (sender instanceof ConsoleCommandSender) {
-            Bukkit.getConsoleSender().sendMessage("[TimeRestricter]: " + outmsg);
-        }
+        lf.sendMsgToCorrectSenderInfo(outputmsg, sender);
         return true;
     }
 }

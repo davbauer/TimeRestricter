@@ -1,6 +1,7 @@
 package me.davbauer.timerestricter.commands;
 
 import me.davbauer.timerestricter.TimeRestricter;
+import me.davbauer.timerestricter.logic.LogicFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,9 +14,11 @@ import java.util.*;
 public class FillUpTimeCommand implements CommandExecutor {
 
     private final TimeRestricter main;
+    private final LogicFunctions lf;
 
     public FillUpTimeCommand(TimeRestricter main) {
         this.main = main;
+        this.lf = new LogicFunctions(main);
     }
     
     @Override
@@ -23,6 +26,9 @@ public class FillUpTimeCommand implements CommandExecutor {
         
         String outmsg = "";
         if (args.length == 0) {
+            if(!lf.senderAllowedBasicCommands()) {
+                if (!lf.senderGotRights("timerestricter.view_filluptime", sender)) return false;
+            }
             String getHour = main.getConfig().getString("fillUpTimeHour");
             String getMinutes = main.getConfig().getString("fillUpTimeMinute");
             
@@ -34,6 +40,8 @@ public class FillUpTimeCommand implements CommandExecutor {
             
             outmsg = "Current fillUpTime-Config: " + getHour + ":" + getMinutes + " [" + daystr + "].";
         } else if (args.length > 0) {
+            if (!lf.senderGotRights("timerestricter.change_filluptime", sender)) return false;
+
             String[] inputTime = args[0].split(":");
 
 

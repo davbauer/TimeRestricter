@@ -1,4 +1,4 @@
-package me.davbauer.timerestricter;
+package me.davbauer.timerestricter.logic;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

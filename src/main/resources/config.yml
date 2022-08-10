@@ -1,9 +1,14 @@
 # github.com/davbauer/TimeRestricter
+
+# Available Commands: /help TimeRestricter
 # If you want to change anything use commands or stop server
-# (file is constantly used by the Plugin!)
-# Days: 1 = Monday, 2 = Tuesday, etc
+# (Plugin uses this config to save live data,
+# therefore your changes might get overwritten)
+
 
 enabled: true
+opPlayersHaveFullRights: true
+allowBasicCommandsWithoutPermissions: true
 availableMinutes: 100
 fillUpTimeHour: 4
 fillUpTimeMinute: 15
