@@ -32,6 +32,7 @@ fillUpTimeDays:
 
 ## Commands
 
+```md
 - /tr-time ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ Shows the player the remaining time.
 - /tr-time <player_name> ⠀ ⠀ ⠀ ⠀Lookup remaning time of other players.
 - /tr-playerstime ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ View remaining time of all players.
@@ -48,7 +49,7 @@ fillUpTimeDays:
 - /tr-servertime  ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀Show current time from the server.
   
 - /tr-timereset  ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀Reset time for everybody.
-
+```
 
 ## Permissions
   
