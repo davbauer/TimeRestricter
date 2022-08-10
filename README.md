@@ -27,17 +27,17 @@
 
 ## Permissions
   
-timerestricter.view_time_self
-timerestricter.view_time_others
-timerestricter.view_time_all_player
+- timerestricter.view_time_self
+- timerestricter.view_time_others
+- timerestricter.view_time_all_player
 
-timerestricter.view_plugin_enabled
-timerestricter.change_plugin_enabled
+- timerestricter.view_plugin_enabled
+- timerestricter.change_plugin_enabled
   
-timerestricter.view_available_minutes
-timerestricter.change_available_minutes
+- timerestricter.view_available_minutes
+- timerestricter.change_available_minutes
 
-timerestricter.view_filluptime
-timerestricter.change_filluptime
+- timerestricter.view_filluptime
+- timerestricter.change_filluptime
   
-timerestricter.reset_time
+- timerestricter.reset_time
