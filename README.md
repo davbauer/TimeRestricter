@@ -4,7 +4,7 @@
 
 - 1.19
 
-### Where can I donwload the plugin?
+### Where can I download the plugin?
 
 - Head over to the releases on the right side to download the latest version.
 
