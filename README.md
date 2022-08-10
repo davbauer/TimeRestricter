@@ -47,6 +47,8 @@ fillUpTimeDays:
  - /tr-servertime
  
 With the `allowBasicCommandsWithoutPermissions` every player has the ability to view and check states, not change them.
+
+If you want to completly control who can access which commands, turn the option off and use the listed permissions.
  ```
  
 
