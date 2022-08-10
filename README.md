@@ -11,7 +11,7 @@
 ./TimeRestricter/config.yaml
 ```
 
-```yaml
+```
 
 enabled: true
 opPlayersHaveFullPermissions: true
