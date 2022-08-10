@@ -72,8 +72,8 @@ off and use the listed permissions.
 - /tr-enabled                      Show if plugin enabled or disabled.
 - /tr-enabled <true/false>         Enable or disable the plugin (no reload or restart needed).
 
-- /availableMinutes                Show how much minutes are configured in config.
-- /availableMinutes <minutes>      Set the amount of minutes in config.
+- /tr-availableMinutes                Show how much minutes are configured in config.
+- /tr-availableMinutes <minutes>      Set the amount of minutes in config.
 
 - /tr-fillupTime                   Show when time gets filled up again.
 - /tr-fillupTime 06:10 1234567     Set time and days (1 = Mon, 2 = Tue, etc) when the time fillup should occour.
