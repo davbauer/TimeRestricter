@@ -34,7 +34,7 @@ fillUpTimeDays:
  The numbers on the `fillUpTimeDays` property are days:
  (1 = Mon, 2 = Tue, 3 = Thu, 4 = Wed, 5 = Fri, 6 = Sat, 7 = Sun)
  
- The `fillUpTime*` properties describe when the time should be reset for every player
+ The `fillUpTime*` properties describe when the time should be reset for every player.
  
  The `allowBasicCommandsWithoutPermissions` property gives every user basic access like:
  - /tr-time
