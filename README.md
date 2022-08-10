@@ -2,7 +2,7 @@
 
 ## Officially supported Minecraft versions:
 
-- 1.19.X
+- 1.19
 
 ## What can this simple plugin do for me?
 
