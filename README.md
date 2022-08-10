@@ -7,8 +7,7 @@
 
 ## Commands and Permissions
 
-- /tr-time                      Shows the player the remaining time              timerestricter.view_time_self
-  - asd asd 	
+- /tr-time⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Shows the player the remaining time⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀timerestricter.view_time_self
 - /tr-time <player_name>        Lookup remaning time of other players            timerestricter.view_time_others
 - /tr-playerstime               View remaining time of all players               timerestricter.view_time_all_player
 
