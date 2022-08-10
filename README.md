@@ -1,5 +1,8 @@
 # TimeRestricter
 
-For Minecraft version 1.19.x
+## What can this simple plugin do for me?
 
-This plugin only allows the players to play for a specific amount of time every day
+- Kick players if they have no time left
+- Configure at which time and at which day the plugin should refill the time
+
+## Commands
