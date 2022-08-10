@@ -33,25 +33,27 @@ fillUpTimeDays:
 ## Commands
 
 ```txt
-- /tr-time        Shows the player the remaining time.
-- /tr-time <player_name> ⠀ ⠀ ⠀ ⠀Lookup remaning time of other players.
-- /tr-playerstime ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ View remaining time of all players.
+- /tr-time                         Shows the player the remaining time.
+- /tr-time <player_name>           Lookup remaning time of other players.
+- /tr-playerstime                  View remaining time of all players.
 
-- /tr-enabled ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ Show if plugin enabled or disabled.
-- /tr-enabled <true/false> ⠀ ⠀ ⠀ ⠀ Enable or disable the plugin (no reload or restart needed).
+- /tr-enabled                      Show if plugin enabled or disabled.
+- /tr-enabled <true/false>         Enable or disable the plugin (no reload or restart needed).
 
-- /availableMinutes ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ Show how much minutes are configured in config.
-- /availableMinutes <minutes> ⠀ ⠀ ⠀Set the amount of minutes in config.
+- /availableMinutes                Show how much minutes are configured in config.
+- /availableMinutes <minutes>      Set the amount of minutes in config.
 
-- /tr-fillupTime ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ Show when time gets filled up again.
-- /tr-fillupTime 06:10 1234567 ⠀ ⠀Set time and days (Mon = 1, Tue = 2, etc) when the time fillup should occour.
+- /tr-fillupTime                   Show when time gets filled up again.
+- /tr-fillupTime 06:10 1234567     Set time and days (Mon = 1, Tue = 2, etc) when the time fillup should occour.
   
-- /tr-servertime  ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀Show current time from the server.
+- /tr-servertime                   Show current time from the server.
   
-- /tr-timereset  ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀Reset time for everybody.
+- /tr-timereset                    Reset time for everybody.
 ```
 
 ## Permissions
+
+```txt
   
 - timerestricter.view_time_self
 - timerestricter.view_time_others
@@ -67,3 +69,5 @@ fillUpTimeDays:
 - timerestricter.change_filluptime
   
 - timerestricter.reset_time
+
+```
