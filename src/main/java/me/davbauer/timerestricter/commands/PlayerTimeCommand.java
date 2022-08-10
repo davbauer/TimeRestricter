@@ -24,28 +24,54 @@ public class PlayerTimeCommand implements CommandExecutor {
 
         if(!lf.pluginIsEnabledWithMsg(sender)) return false;
 
-        if(!lf.senderAllowedBasicCommands()) {
-            if (!lf.senderGotRights("timerestricter.view_time_self", sender)) return false;
-        }
-
         if (args.length == 0) {
-            if(sender instanceof Player) {
-                return sendResponse(((Player) sender).getPlayer());
+            if(!lf.senderAllowedBasicCommands()) {
+                if (!lf.senderGotRights("timerestricter.view_time_self", sender)) return false;
             }
-            lf.sendToConsole("You need to be a player to use this command or specify one.");
+            if(sender instanceof Player) {
+                Player p = (Player) sender;
+                String outputmsg = getResponse(p.getName(), p.getUniqueId().toString());
+                main.txtout.sendPlayerMessageInfo(outputmsg, p);
+                return true;
+            } else {
+                lf.sendToConsole("You need to be a player or specify one to use this command.");
+            }
+
+        } else {
+
+            if(!lf.senderAllowedBasicCommands()) {
+                if (!lf.senderGotRights("timerestricter.view_time_others", sender)) return false;
+            }
+            String playerNameToSearch = args[0];
+            String playerId = "";
+
+            for (final String uuid : main.getConfig().getConfigurationSection("data").getKeys(false)) {
+                String currName = main.getConfig().getString("data." + uuid + ".name");
+                if (currName.equals(playerNameToSearch)) {
+                    playerId = uuid;
+                    break;
+                }
+            }
+
+            if (playerId.length() == 0) {
+                lf.sendMsgToCorrectSenderWarn("Player " + playerNameToSearch + " not found.", sender);
+                return false;
+            } else {
+                lf.sendMsgToCorrectSenderInfo(getResponse(playerNameToSearch, playerId), sender);
+                return true;
+            }
         }
         return false;
     }
 
-    public boolean sendResponse(Player p) {
-        String playerId = p.getUniqueId().toString();
+    public String getResponse(String playerName, String playerId) {
 
         long joinedMillis = main.getConfig().getLong("data."+playerId+".joined");
         long configTime = main.getConfig().getLong("availableMinutes") * 60000; // Convert Minutes in Config to Millis
         long spentTime = main.getConfig().getLong("data."+playerId+".spent");
 
         // Check if joined time in config valid
-        if (joinedMillis == 0) return false;
+        if (joinedMillis == 0) return "";
         long currentMillis = System.currentTimeMillis();
 
         // calculate millis (available time - already spent time - current session time)
@@ -56,7 +82,6 @@ public class PlayerTimeCommand implements CommandExecutor {
                         - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(calculatedMillis))
         );
 
-        main.txtout.sendPlayerMessageInfo( p.getName() + "`s leftover time: " + minutesLeft + ".", p);
-        return true;
+        return playerName + "`s leftover time: " + minutesLeft + ".";
     }
 }

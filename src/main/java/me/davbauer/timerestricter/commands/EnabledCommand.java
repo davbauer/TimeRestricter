@@ -21,7 +21,6 @@ public class EnabledCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String outputmsg;
         boolean configEnabled = main.getConfig().getBoolean("enabled");
 
         if (args.length > 0) {
@@ -30,15 +29,16 @@ public class EnabledCommand implements CommandExecutor {
             boolean inputBool = Boolean.parseBoolean(args[0]);
             main.getConfig().set("enabled", inputBool);
             main.saveConfig();
-            outputmsg = "Changed enabled-config: " + inputBool + ".";
+            main.txtout.sendGlobalMessageInfo("Changed enabled-config: " + inputBool + ".");
+
         } else {
             if(!lf.senderAllowedBasicCommands()) {
                 if (!lf.senderGotRights("timerestricter.view_plugin_enabled", sender)) return false;
             }
-            outputmsg = "Current enabled-config: " + configEnabled + ".";
+            lf.sendMsgToCorrectSenderInfo("Current enabled-config: " + configEnabled + ".", sender);
         }
 
-        lf.sendMsgToCorrectSenderInfo(outputmsg, sender);
+
 
         return true;
     }

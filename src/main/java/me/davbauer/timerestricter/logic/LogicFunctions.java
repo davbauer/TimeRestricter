@@ -18,7 +18,7 @@ public class LogicFunctions {
     public boolean senderGotRights(String permissionStr, CommandSender sender) {
         // Leave permissionStr just empty if not wanted to use
 
-        boolean opPlayersAllowed = main.getConfig().getBoolean("opPlayersHaveFullRights");
+        boolean opPlayersAllowed = main.getConfig().getBoolean("opPlayersHaveFullPermissions");
 
         if (sender instanceof ConsoleCommandSender) return true;
 

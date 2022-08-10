@@ -10,6 +10,7 @@ timerestricter.change_filluptime
 
 timerestricter.view_time_all_player
 timerestricter.view_time_self
+timerestricter.view_time_others
 
 timerestricter.reset_time
 
@@ -22,3 +23,4 @@ timerestricter.view_plugin_enabled
 timerestricter.view_filluptime
 timerestricter.view_time_all_player
 timerestricter.view_time_self
+timerestricter.view_time_others

@@ -17,6 +17,9 @@ public final class TimeRestricter extends JavaPlugin {
     public CheckTimeOnPlayers checkTimeOnPlayers = new CheckTimeOnPlayers(this);
     public CheckIfTimeToReset checkIfTimeToReset = new CheckIfTimeToReset(this);
     public ResetTimeForPlayers resetTimeForPlayers = new ResetTimeForPlayers(this);
+    public OnPlayerQuitEvent onPlayerQuitEvent = new OnPlayerQuitEvent(this);
+
+    public OnPlayerLoginEvent onPlayerLoginEvent = new OnPlayerLoginEvent(this);
 
     @Override
     public void onEnable() {
@@ -40,9 +43,16 @@ public final class TimeRestricter extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OnPlayerLoginEvent(this), this);
         getServer().getPluginManager().registerEvents(new OnPlayerQuitEvent(this), this);
 
+        if (getConfig().getBoolean("enabled")) txtout.sendGlobalMessageInfo( "active.");
+
+        // Reinit and correct data after a reload for example
+        for (final Player p : Bukkit.getOnlinePlayers()) {
+            onPlayerQuitEvent.PlayerOffline(p);
+            onPlayerLoginEvent.PlayerOnline(p);
+        }
+        saveConfig();
 
 
-        txtout.sendGlobalMessageInfo( "active.");
 
         this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             public void run() {
@@ -58,7 +68,6 @@ public final class TimeRestricter extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        OnPlayerQuitEvent onPlayerQuitEvent = new OnPlayerQuitEvent(this);
         for (final Player p : Bukkit.getOnlinePlayers()) {
             onPlayerQuitEvent.PlayerOffline(p);
         }

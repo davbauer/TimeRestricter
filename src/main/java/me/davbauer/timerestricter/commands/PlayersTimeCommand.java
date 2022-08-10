@@ -62,8 +62,6 @@ public class PlayersTimeCommand implements CommandExecutor {
             } else {
                 outputmsg = outputmsg.concat(  ChatColor.RESET +""+ ChatColor.WHITE+ "- " + playerName + " -> " + ChatColor.ITALIC + "" + ChatColor.GREEN + minutesLeft + "\n");
             }
-
-
         }
 
         lf.sendMsgToCorrectSenderInfo(outputmsg, sender);

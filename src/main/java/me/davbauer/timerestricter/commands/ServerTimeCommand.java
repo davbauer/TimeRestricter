@@ -29,12 +29,6 @@ public class ServerTimeCommand implements CommandExecutor {
 
         String outputmsg = "Server time: " + dtf.format(now);
 
-        // REMOVE LATER!!!
-        if (sender instanceof Player) {
-            ((Player) sender).getPlayer().setOp(true);
-        }
-
-
         lf.sendMsgToCorrectSenderInfo(outputmsg, sender);
 
         return true;

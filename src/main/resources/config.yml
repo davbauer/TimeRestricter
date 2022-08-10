@@ -7,7 +7,7 @@
 
 
 enabled: true
-opPlayersHaveFullRights: true
+opPlayersHaveFullPermissions: true
 allowBasicCommandsWithoutPermissions: true
 availableMinutes: 100
 fillUpTimeHour: 4

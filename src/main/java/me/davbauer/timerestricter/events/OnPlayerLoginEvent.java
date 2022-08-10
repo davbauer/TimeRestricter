@@ -25,7 +25,8 @@ public class OnPlayerLoginEvent implements Listener {
         if (!main.getConfig().getBoolean("enabled")) return;
         // Send player how much time he got left onJoin
         PlayerTimeCommand infoCommandObject = new PlayerTimeCommand(main);
-        infoCommandObject.sendResponse(e.getPlayer());
+        Player p = e.getPlayer();
+        infoCommandObject.getResponse(p.getName(), p.getUniqueId().toString());
     }
 
 
@@ -34,12 +35,15 @@ public class OnPlayerLoginEvent implements Listener {
         if (!main.getConfig().getBoolean("enabled")) return;
 
         Player p = e.getPlayer();
+        if(!this.PlayerOnline(p)) e.disallow(PlayerLoginEvent.Result.KICK_FULL, lf.generateKickMessage());
+        main.saveConfig();
 
+    }
+
+    public boolean PlayerOnline(Player p) {
         String playerName = p.getName();
         String playerId = p.getUniqueId().toString();
         String playerDataPath = "data."+playerId;
-
-
 
         // Check if player already exists
         if(lf.dataForPlayerCreated(playerDataPath+".name")) {
@@ -54,23 +58,21 @@ public class OnPlayerLoginEvent implements Listener {
             long configSpent = main.getConfig().getLong(playerDataPath+".spent");
             long configMillis = main.getConfig().getLong("availableMinutes") * 60000; // convert minutes to millis
             if (configSpent >= configMillis) {
-                e.disallow(PlayerLoginEvent.Result.KICK_FULL, lf.generateKickMessage());
+                return false;
             }
 
             main.getConfig().set(playerDataPath+".joined", System.currentTimeMillis());
             main.saveConfig();
 
-            return;
+            return  true;
         }
 
         // If player does not exist, create player-data in config
-
         double availableMinutes = main.getConfig().getDouble("availableMinutes");
 
         main.getConfig().set(playerDataPath+".name", playerName);
         main.getConfig().set(playerDataPath+".joined", System.currentTimeMillis());
-        main.saveConfig();
-
+        return true;
     }
 
 }

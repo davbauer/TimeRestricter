@@ -18,14 +18,13 @@ public class AvailableMinutesCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String outputmsg = "";
 
         if (args.length == 0) {
             if(!lf.senderAllowedBasicCommands()) {
                 if (!lf.senderGotRights("timerestricter.view_available_minutes", sender)) return false;
             }
             String configAvailableMinutes = main.getConfig().getString("availableMinutes");
-            outputmsg = "Current availableMinutes-Config: " + configAvailableMinutes + "m.";
+            lf.sendMsgToCorrectSenderInfo("Current availableMinutes-Config: " + configAvailableMinutes + "m.", sender);
         } else {
             if (!lf.senderGotRights("timerestricter.change_available_minutes", sender)) return false;
 
@@ -44,13 +43,13 @@ public class AvailableMinutesCommand implements CommandExecutor {
 
             main.getConfig().set("availableMinutes", inputMinutes);
             main.saveConfig();
-            outputmsg = "Changed availableMinutes-Config: " + inputMinutes + "m.";
+            main.txtout.sendGlobalMessageInfo("Changed availableMinutes-Config: " + inputMinutes + "m.");
 
             // After changing the available Time, the rememberList for notifications should be cleared for new notifications
             main.checkTimeOnPlayers.cleanRememberLists();
         }
 
-        lf.sendMsgToCorrectSenderInfo(outputmsg, sender);
+
         return true;
     }
 }
