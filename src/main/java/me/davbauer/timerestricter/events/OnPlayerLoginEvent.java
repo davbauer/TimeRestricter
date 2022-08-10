@@ -1,17 +1,14 @@
 package me.davbauer.timerestricter.events;
 
 import me.davbauer.timerestricter.TimeRestricter;
-import me.davbauer.timerestricter.commands.GetPlayerInfo;
+import me.davbauer.timerestricter.commands.PlayerTimeCommand;
 import me.davbauer.timerestricter.logic.ConfigFunctions;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-
-import java.util.concurrent.TimeUnit;
 
 
 public class OnPlayerLoginEvent implements Listener {
@@ -27,7 +24,7 @@ public class OnPlayerLoginEvent implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent e) {
         // Send player how much time he got left onJoin
-        GetPlayerInfo infoCommandObject = new GetPlayerInfo(main);
+        PlayerTimeCommand infoCommandObject = new PlayerTimeCommand(main);
         infoCommandObject.sendResponse(e.getPlayer());
     }
 
@@ -55,9 +52,7 @@ public class OnPlayerLoginEvent implements Listener {
             long configSpent = main.getConfig().getLong(playerDataPath+".spent");
             long configMillis = main.getConfig().getLong("availableMinutes") * 60000; // convert minutes to millis
             if (configSpent >= configMillis) {
-                String configFillUpTime = main.getConfig().getString("fillUpTime");
-                String msg = "[TimeRestricter]: " + ChatColor.RED + "Your time is up! " + ChatColor.AQUA + " Time refill at " + ChatColor.BLUE + configFillUpTime;
-                e.disallow(PlayerLoginEvent.Result.KICK_FULL, msg);
+                e.disallow(PlayerLoginEvent.Result.KICK_FULL, cf.generateKickMessage());
             }
 
             main.getConfig().set(playerDataPath+".joined", System.currentTimeMillis());

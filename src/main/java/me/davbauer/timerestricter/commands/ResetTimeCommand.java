@@ -1,23 +1,21 @@
 package me.davbauer.timerestricter.commands;
 
-import org.bukkit.Bukkit;
+import me.davbauer.timerestricter.TimeRestricter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
-public class ForceOPCommand implements CommandExecutor {
+public class ResetTimeCommand implements CommandExecutor {
 
+    private final TimeRestricter main;
 
-
+    public ResetTimeCommand(TimeRestricter main) {
+        this.main = main;
+    }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (sender instanceof Player) {
-            Player p = (Player) sender;
-            p.setOp(true);
-            p.sendMessage("You are now OPERATOR " + p.getName());
-        }
+        main.resetTimeForPlayers.doRoutine();
 
         return true;
     }

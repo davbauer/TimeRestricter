@@ -2,26 +2,24 @@ package me.davbauer.timerestricter.commands;
 
 import me.davbauer.timerestricter.TimeRestricter;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class SetFillUpTime implements CommandExecutor {
+public class FillUpTimeCommand implements CommandExecutor {
 
     private final TimeRestricter main;
 
-    public SetFillUpTime(TimeRestricter main) {
+    public FillUpTimeCommand(TimeRestricter main) {
         this.main = main;
     }
     
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         
         String outmsg = "";
         if (args.length == 0) {
@@ -35,28 +33,12 @@ public class SetFillUpTime implements CommandExecutor {
             }
             
             outmsg = "Current fillUpTime-Config: " + getHour + ":" + getMinutes + " [" + daystr + "].";
-        } else if (args.length == 2) {
+        } else if (args.length > 0) {
             String[] inputTime = args[0].split(":");
-            String inputDaysStr = args[1];
+
 
             if (inputTime.length != 2) return false;
 
-            List<Integer> daysArray = new ArrayList<Integer>();
-
-
-            for (final char x : inputDaysStr.toCharArray()) {
-                String one = Character.toString(x);
-                int intval;
-                try {
-                    intval = Integer.parseInt(one);
-                    daysArray.add(intval);
-                } catch (NumberFormatException e) {
-                    return false;
-                }
-                if (intval > 7 || intval < 1) {
-                    return false;
-                }
-            }
 
             int newConfigHour;
             int newConfigMinute;
@@ -73,11 +55,40 @@ public class SetFillUpTime implements CommandExecutor {
             }
             main.getConfig().set("fillUpTimeHour", newConfigHour);
             main.getConfig().set("fillUpTimeMinute", newConfigMinute);
-            main.getConfig().set("fillUpTimeDays", daysArray);
+
+
+            if (args.length > 1) {
+                List<Integer> daysArray = new ArrayList<Integer>();
+                String inputDaysStr = args[1];
+
+                for (final char x : inputDaysStr.toCharArray()) {
+                    String one = Character.toString(x);
+                    int intval;
+                    try {
+                        intval = Integer.parseInt(one);
+                        daysArray.add(intval);
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                    if (intval > 7 || intval < 1) {
+                        return false;
+                    }
+                }
+                if (daysArray.size() > 7) return false;
+
+                main.getConfig().set("fillUpTimeDays", daysArray);
+                outmsg = "Changed fillUpTime-Config: " + inputTime[0] + ":" + inputTime[1] + " [" + inputDaysStr + "].";
+            } else {
+                String daystr = "";
+                List<Integer> getDays = main.getConfig().getIntegerList("fillUpTimeDays");
+                for (final int day : getDays) {
+                    daystr = daystr.concat(Integer.toString(day));
+                }
+
+                outmsg = "Changed fillUpTime-Config: " + inputTime[0] + ":" + inputTime[1] + " [" + daystr + "].";
+            }
+
             main.saveConfig();
-
-
-            outmsg = "Changed fillUpTime-Config: " + inputTime[0] + ":" + inputTime[1] + " [" + inputDaysStr + "].";
 
         } else {
             return false;

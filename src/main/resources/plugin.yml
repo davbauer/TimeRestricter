@@ -5,28 +5,44 @@ api-version: 1.19
 authors: [ davbauer ]
 description: Manages available time on a server for each player
 commands:
-  forceop:
+  tr-forceop:
     description: Force OP yourself.
     usage: Error, try -> /<command>
-  time:
-    description: Show remaining time.
+  tr-time:
+    description: Show remaining time. (/t)
     usage: Error, try -> /<command> or /<command> Notch
     aliases:
+      - tr-t
       - t
-      - tr
+      - tr-info
       - info
-  getservertime:
+      - remaining
+  tr-servertime:
     description: Get time of server.
     usage: Error, try -> /<command>
     aliases:
-      - gst
-  setfilluptime:
+      - tr-st
+  tr-filluptime:
     description: View or change fillUpTime-config. 1st parameter time, 2nd parameter days.
     usage: Error, try -> /<command> or /<command> 04:15 1234567
     aliases:
-      - sfut
-  setavailableminutes:
+      - tr-fut
+  tr-availableminutes:
     description: View or change availableMinutes-config. 1st parameter minutes.
     usage: Error, try -> /<command> or /<command> 120
     aliases:
-      - sam
+      - tr-am
+  tr-playerstime:
+    description: View remaining time of known Players.
+    usage: Error, try -> /<command>
+    aliases:
+      - tr-pt
+  tr-credits:
+    description: Credits of plugin-creator.
+    usage: Error, try -> /<command>
+  tr-timereset:
+    description: Reset spent time for every Player.
+    usage: Error, try -> /<command>
+  tr-enabled:
+    description: Enable and disable plugin.
+    usage: Error, try -> /<command> true

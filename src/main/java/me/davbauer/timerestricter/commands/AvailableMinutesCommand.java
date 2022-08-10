@@ -7,18 +7,17 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
-public class SetAvailableMinutes implements CommandExecutor {
+public class AvailableMinutesCommand implements CommandExecutor {
 
     private final TimeRestricter main;
 
-    public SetAvailableMinutes(TimeRestricter main) {
+    public AvailableMinutesCommand(TimeRestricter main) {
         this.main = main;
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String outmsg = "";
 
         if (args.length == 0) {
@@ -41,6 +40,9 @@ public class SetAvailableMinutes implements CommandExecutor {
             main.getConfig().set("availableMinutes", inputMinutes);
             main.saveConfig();
             outmsg = "Changed availableMinutes-Config: " + inputMinutes + "m.";
+
+            // After changing the available Time, the rememberList for notifications should be cleared for new notifications
+            main.checkTimeOnPlayers.cleanRememberLists();
         }
 
         if (sender instanceof Player) {
