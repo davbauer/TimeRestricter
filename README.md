@@ -29,6 +29,12 @@ fillUpTimeDays:
   - 7
   
  ```
+ 
+ ```txt
+ The numbers on the `fillUpTImeDays` property are Days
+ (1 = Mon, 2 = Tue, 3 = Thu, 4 = Wed, 5 = Fri, 6 = Sat, 7 = Sun)
+ ```
+ 
 
 ## Commands
 
@@ -44,7 +50,7 @@ fillUpTimeDays:
 - /availableMinutes <minutes>      Set the amount of minutes in config.
 
 - /tr-fillupTime                   Show when time gets filled up again.
-- /tr-fillupTime 06:10 1234567     Set time and days (Mon = 1, Tue = 2, etc) when the time fillup should occour.
+- /tr-fillupTime 06:10 1234567     Set time and days (1 = Mon, 2 = Tue, etc) when the time fillup should occour.
   
 - /tr-servertime                   Show current time from the server.
   
