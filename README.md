@@ -1,5 +1,9 @@
 # TimeRestricter
 
+## Officially supported Minecraft versions:
+
+- 1.19.X
+
 ## What can this simple plugin do for me?
 
 - Kick players if they have no time left
