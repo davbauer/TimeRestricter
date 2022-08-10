@@ -5,6 +5,27 @@
 - Kick players if they have no time left
 - Configure at which time and at which day the plugin should refill the time
 
+## Config
+
+```yaml
+
+enabled: true
+opPlayersHaveFullPermissions: true
+allowBasicCommandsWithoutPermissions: true
+availableMinutes: 100
+fillUpTimeHour: 4
+fillUpTimeMinute: 15
+fillUpTimeDays:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  
+ ```
+
 ## Commands
 
 - /tr-time ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ Shows the player the remaining time.
