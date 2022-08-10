@@ -5,21 +5,39 @@
 - Kick players if they have no time left
 - Configure at which time and at which day the plugin should refill the time
 
-## Commands and Permissions
+## Commands
 
-- /tr-time ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ Shows the player the remaining time ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ timerestricter.view_time_self
-- /tr-time <player_name> ⠀ ⠀Lookup remaning time of other players ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ timerestricter.view_time_others
-- /tr-playerstime ⠀ ⠀ ⠀ ⠀ ⠀ View remaining time of all players ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ timerestricter.view_time_all_player
+- /tr-time ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ Shows the player the remaining time.
+- /tr-time <player_name> ⠀ ⠀ ⠀ ⠀Lookup remaning time of other players.
+- /tr-playerstime ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ View remaining time of all players.
 
-![#f03c15]this is a test `#f03c15`
+- /tr-enabled ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ Show if plugin enabled or disabled.
+- /tr-enabled <true/false> ⠀ ⠀ ⠀ ⠀ Enable or disable the plugin (no reload or restart needed).
 
-- /tr-    timerestricter.view_available_minutes
-- /tr-    timerestricter.change_available_minutes
+- /availableMinutes ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ Show how much minutes are configured in config.
+- /availableMinutes <minutes> ⠀ ⠀ ⠀Set the amount of minutes in config.
 
-- /tr-    timerestricter.view_plugin_enabled
-- /tr-    timerestricter.change_plugin_enabled
+- /tr-fillupTime ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ Show when time gets filled up again.
+- /tr-fillupTime 06:10 1234567 ⠀ ⠀Set time and days (Mon = 1, Tue = 2, etc) when the time fillup should occour.
+  
+- /tr-servertime  ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀Show current time from the server.
+  
+- /tr-timereset  ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀ ⠀Reset time for everybody.
 
-- /tr-    timerestricter.view_filluptime
-- /tr-    timerestricter.change_filluptime
 
-- /tr-    timerestricter.reset_time
+## Permissions
+  
+timerestricter.view_time_self
+timerestricter.view_time_others
+timerestricter.view_time_all_player
+
+timerestricter.view_plugin_enabled
+timerestricter.change_plugin_enabled
+  
+timerestricter.view_available_minutes
+timerestricter.change_available_minutes
+
+timerestricter.view_filluptime
+timerestricter.change_filluptime
+  
+timerestricter.reset_time
