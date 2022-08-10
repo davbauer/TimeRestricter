@@ -7,7 +7,7 @@
 
 ## Config
 
-```json
+```html
 ./TimeRestricter/config.yaml
 ```
 
