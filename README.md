@@ -7,6 +7,10 @@
 
 ## Config
 
+```json
+./TimeRestricter/config.yaml
+```
+
 ```yaml
 
 enabled: true
