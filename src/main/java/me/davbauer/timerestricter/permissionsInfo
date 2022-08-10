@@ -14,9 +14,7 @@ timerestricter.view_time_others
 
 timerestricter.reset_time
 
-Automatically earned rights trough
-`allowBasicCommandsWithoutPermissions: true`
-in config:
+Automatically earned rights trough `allowBasicCommandsWithoutPermissions: true` in config:
 
 timerestricter.view_available_minutes
 timerestricter.view_plugin_enabled
