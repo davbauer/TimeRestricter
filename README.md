@@ -31,8 +31,22 @@ fillUpTimeDays:
  ```
  
  ```txt
- The numbers on the `fillUpTImeDays` property are Days
+ The numbers on the `fillUpTimeDays` property are days:
  (1 = Mon, 2 = Tue, 3 = Thu, 4 = Wed, 5 = Fri, 6 = Sat, 7 = Sun)
+ 
+ The `fillUpTime*` properties describe when the time should be reset for every player
+ 
+ The `allowBasicCommandsWithoutPermissions` property gives every user basic access like:
+ - /tr-time
+ - /tr-time <player_name>
+ - /tr-playerstime
+ 
+ - /tr-enabled
+ - /tr-available Minutes
+ - /tr-fillupTime
+ - /tr-servertime
+ 
+With the `allowBasicCommandsWithoutPermissions` every player has the ability to view and check states, not change them.
  ```
  
 
