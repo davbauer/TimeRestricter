@@ -70,7 +70,7 @@ off and use the listed permissions on the bottom.
 - /tr-playerstime                  View remaining time of all players.
 
 - /tr-enabled                      Show if plugin enabled or disabled.
-- /tr-enabled <true/false>         Enable or disable the plugin (no reload or restart needed).
+- /tr-enabled <true/false>         Enable or disable the plugin (no reload or restart needed, pauses the timer).
 
 - /tr-availableMinutes             Show how much minutes are configured in config.
 - /tr-availableMinutes <minutes>   Set the amount of minutes in config.
