@@ -12,6 +12,7 @@
 
 - Kick players if they have no time left
 - Configure at which time and at which day the plugin should refill the time
+- Pause all timers at any given time
 
 ## Config
 
