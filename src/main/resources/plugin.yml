@@ -1,5 +1,5 @@
 name: TimeRestricter
-version: '${project.version}'
+version: '1.0.1'
 main: me.davbauer.timerestricter.TimeRestricter
 api-version: 1.19
 authors: [ davbauer ]

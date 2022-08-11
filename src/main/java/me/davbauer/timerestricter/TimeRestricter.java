@@ -43,14 +43,17 @@ public final class TimeRestricter extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OnPlayerLoginEvent(this), this);
         getServer().getPluginManager().registerEvents(new OnPlayerQuitEvent(this), this);
 
-        if (getConfig().getBoolean("enabled")) txtout.sendGlobalMessageInfo( "active.");
-
-        // Reinit and correct data after a reload for example
-        for (final Player p : Bukkit.getOnlinePlayers()) {
-            onPlayerQuitEvent.PlayerOffline(p);
-            onPlayerLoginEvent.PlayerOnline(p);
+        if (getConfig().getBoolean("enabled")) {
+            txtout.sendGlobalMessageInfo( "active.");
+            // Reinit and correct data after a reload for example, but only if plugin enabled
+            for (final Player p : Bukkit.getOnlinePlayers()) {
+                onPlayerQuitEvent.PlayerOffline(p);
+                onPlayerLoginEvent.PlayerOnline(p);
+            }
+            saveConfig();
         }
-        saveConfig();
+
+
 
 
 
