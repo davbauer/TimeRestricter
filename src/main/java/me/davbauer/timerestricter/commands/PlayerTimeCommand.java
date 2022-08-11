@@ -22,8 +22,6 @@ public class PlayerTimeCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if(!lf.pluginIsEnabledWithMsg(sender)) return false;
-
         if (args.length == 0) {
             if(!lf.senderAllowedBasicCommands()) {
                 if (!lf.senderGotRights("timerestricter.view_time_self", sender)) return false;
@@ -70,18 +68,27 @@ public class PlayerTimeCommand implements CommandExecutor {
         long configTime = main.getConfig().getLong("availableMinutes") * 60000; // Convert Minutes in Config to Millis
         long spentTime = main.getConfig().getLong("data."+playerId+".spent");
 
-        // Check if joined time in config valid
-        if (joinedMillis == 0) return "";
         long currentMillis = System.currentTimeMillis();
+        long calculatedMillis;
+        if (joinedMillis == 0) {
+            calculatedMillis = configTime - spentTime;
+        } else {
+            calculatedMillis = configTime - spentTime - (currentMillis - joinedMillis);
+        }
 
         // calculate millis (available time - already spent time - current session time)
-        long calculatedMillis = configTime - spentTime - (currentMillis - joinedMillis);
         String minutesLeft = String.format("%dm, %ds",
                 TimeUnit.MILLISECONDS.toMinutes(calculatedMillis),
                 TimeUnit.MILLISECONDS.toSeconds(calculatedMillis)
                         - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(calculatedMillis))
         );
 
-        return playerName + "`s leftover time: " + minutesLeft + ".";
+        if (main.getConfig().getBoolean("enabled")) {
+            return playerName + "`s leftover time: " + minutesLeft + ".";
+        } else {
+            return playerName + "`s leftover time: " + minutesLeft + ". (Plugin paused)";
+        }
+
+
     }
 }

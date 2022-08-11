@@ -9,11 +9,7 @@ commands:
     description: Show remaining time. (/t)
     usage: Error, try -> /<command> or /<command> Notch
     aliases:
-      - tr-t
       - t
-      - tr-info
-      - info
-      - remaining
   tr-servertime:
     description: Get time of server.
     usage: Error, try -> /<command>
@@ -37,9 +33,15 @@ commands:
   tr-credits:
     description: Credits of plugin-creator.
     usage: Error, try -> /<command>
+    aliases:
+      - tr-c
   tr-timereset:
     description: Reset spent time for every Player.
     usage: Error, try -> /<command>
+    aliases:
+      - tr-tr
   tr-enabled:
     description: Enable and disable plugin.
     usage: Error, try -> /<command> true
+    aliases:
+      - tr-e

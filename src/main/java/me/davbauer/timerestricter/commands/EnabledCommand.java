@@ -31,6 +31,16 @@ public class EnabledCommand implements CommandExecutor {
             main.saveConfig();
             main.txtout.sendGlobalMessageInfo("Changed enabled-config: " + inputBool + ".");
 
+            if (inputBool == true) {
+                for (final Player p : Bukkit.getOnlinePlayers()) {
+                    main.onPlayerLoginEvent.PlayerOnline(p);
+                }
+            } else {
+                for (final Player p : Bukkit.getOnlinePlayers()) {
+                    main.onPlayerQuitEvent.PlayerOffline(p);
+                }
+            }
+
         } else {
             if(!lf.senderAllowedBasicCommands()) {
                 if (!lf.senderGotRights("timerestricter.view_plugin_enabled", sender)) return false;

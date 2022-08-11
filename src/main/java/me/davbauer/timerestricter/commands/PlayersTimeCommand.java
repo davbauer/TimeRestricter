@@ -25,14 +25,17 @@ public class PlayersTimeCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if(!lf.pluginIsEnabledWithMsg(sender)) return false;
-
         if(!lf.senderAllowedBasicCommands()) {
             if (!lf.senderGotRights("timerestricter.view_time_all_player", sender)) return false;
         }
+        String outputmsg;
 
+        if (main.getConfig().getBoolean("enabled")) {
+            outputmsg = "Remaining time of known players for today:\n";
+        } else {
+            outputmsg = "Remaining time of known players for today: (Plugin paused)\n";
+        }
 
-        String outputmsg = "Remaining time of known players for today:\n";
         long configTime = main.getConfig().getLong("availableMinutes") * 60000; // Convert Minutes in Config to Millis
         long currentMillis = System.currentTimeMillis();
         for (final String uuid : main.getConfig().getConfigurationSection("data").getKeys(false)) {
@@ -41,10 +44,10 @@ public class PlayersTimeCommand implements CommandExecutor {
             long joinedMillis = main.getConfig().getLong(playerPath + ".joined");
             long spentTime = main.getConfig().getLong(playerPath + ".spent");
 
-            long calculatedMillis = 0;
+            long calculatedMillis;
 
-            if ((joinedMillis + spentTime) == 0) {
-                calculatedMillis = configTime;
+            if (joinedMillis == 0) {
+                calculatedMillis = configTime - spentTime;
             } else {
                 calculatedMillis = configTime - spentTime - (currentMillis - joinedMillis);
             }

@@ -103,9 +103,14 @@ public class FillUpTimeCommand implements CommandExecutor {
         }
 
         if (sender instanceof Player) {
-            main.txtout.sendPlayerMessageInfo(outmsg, (Player) sender);
+            if (args.length > 0) {
+                main.txtout.sendGlobalMessageInfo(outmsg);
+            } else {
+                main.txtout.sendPlayerMessageInfo(outmsg, (Player) sender);
+            }
+
         } else if (sender instanceof ConsoleCommandSender) {
-            Bukkit.getConsoleSender().sendMessage("[TimeRestricter]: " + outmsg);
+            lf.sendToConsole(outmsg);
         }
         return true;
     }

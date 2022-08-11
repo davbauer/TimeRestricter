@@ -15,9 +15,12 @@ public class OnPlayerLoginEvent implements Listener {
     private final TimeRestricter main;
     private final LogicFunctions lf;
 
+    private final PlayerTimeCommand ptc;
+
     public OnPlayerLoginEvent(TimeRestricter main) {
         this.main = main;
         this.lf = new LogicFunctions(main);
+        this.ptc = new PlayerTimeCommand(main);
     }
 
     @EventHandler
@@ -26,16 +29,19 @@ public class OnPlayerLoginEvent implements Listener {
         // Send player how much time he got left onJoin
         PlayerTimeCommand infoCommandObject = new PlayerTimeCommand(main);
         Player p = e.getPlayer();
-        infoCommandObject.getResponse(p.getName(), p.getUniqueId().toString());
+        main.txtout.sendPlayerMessageInfo(ptc.getResponse(p.getName(), p.getUniqueId().toString()), p);
     }
 
 
     @EventHandler
     public void PlayerLoginEvent(PlayerLoginEvent e) {
-        if (!main.getConfig().getBoolean("enabled")) return;
 
+        if (!main.getConfig().getBoolean("enabled")) return;
         Player p = e.getPlayer();
-        if(!this.PlayerOnline(p)) e.disallow(PlayerLoginEvent.Result.KICK_FULL, lf.generateKickMessage());
+        if(!this.PlayerOnline(p)) {
+            e.disallow(PlayerLoginEvent.Result.KICK_FULL, lf.generateKickMessage());
+        }
+
         main.saveConfig();
 
     }
