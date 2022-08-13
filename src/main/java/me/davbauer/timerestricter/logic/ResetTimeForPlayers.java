@@ -35,6 +35,12 @@ public class ResetTimeForPlayers {
             main.getConfig().set(playerPath + ".joined", newJoinTime);
         }
 
+        if(!main.getConfig().getBoolean("enabled")) {
+            for (final Player p : Bukkit.getOnlinePlayers()) {
+                main.onPlayerQuitEvent.PlayerOffline(p);
+            }
+        }
+
         // Clear notificationList for future notifications
         main.checkTimeOnPlayers.cleanRememberLists();
         main.saveConfig();
